@@ -1,94 +1,143 @@
-<header>
+# TabMaster
 
-<!--
-  <<< Author notes: Course header >>>
-  Read <https://skills.github.com/quickstart> for more information about how to build courses using this template.
-  Include a 1280×640 image, course name in sentence case, and a concise description in emphasis.
-  In your repository settings: enable template repository, add your 1280×640 social image, auto delete head branches.
-  Next to "About", add description & tags; disable releases, packages, & environments.
-  Add your open source license, GitHub uses the MIT license.
--->
+TabMaster is a Guitar Hero–style chord learning environment. Upload an audio file, let the app synthesize a mock chord map, and
+practice along with synchronized visualizations that include Guitar Hero tabbing, ASCII tablature, and fretboard guidance.
 
-# Code with GitHub Copilot
-
-_GitHub Copilot can help you code by offering autocomplete-style suggestions right in VS Code and Codespaces._
-
-</header>
-
-<!--
-  <<< Author notes: Step 1 >>>
-  Choose 3-5 steps for your course.
-  The first step is always the hardest, so pick something easy!
-  Link to docs.github.com for further explanations.
-  Encourage users to open new tabs for steps!
--->
-
-## Step 1: Leverage Codespaces with VS Code for Copilot
-
-_Welcome to "Develop With AI Powered Code Suggestions Using GitHub Copilot and VS Code"! :wave:_
-
-GitHub Copilot is an AI pair programmer that helps you write code faster and with less work. It draws context from comments and code to suggest individual lines and whole functions instantly. GitHub Copilot is powered by OpenAI Codex, a generative pretrained language model created by OpenAI.
-
-**Copilot works with many code editors including VS Code, Visual Studio, JetBrains IDE, and Neovim.**
-
-Additionally, GitHub Copilot is trained on all languages that appear in public repositories. For each language, the quality of suggestions you receive may depend on the volume and diversity of training data for that language.
-
-Using Copilot inside a Codespace shows just how easy it is to get up and running with GitHub's suite of [Collaborative Coding](https://github.com/features#features-collaboration) tools.
-
-> **Note**
-> This skills exercise will focus on leveraging GitHub Codespace. It is recommended that you complete the GitHub skill, [Codespaces](https://github.com/skills/code-with-codespaces), before moving forward with this exercise.
-
-### :keyboard: Activity: Enable Copilot inside a Codespace
-
-**We recommend opening another browser tab to work through the following activities so you can keep these instructions open for reference.**
-
-Before you open up a codespace on a repository, you can create a development container and define specific extensions or configurations that will be used or installed in your codespace. Let's create this development container and add copilot to the list of extensions.
-
-1. Navigating back to your **Code** tab of your repository, click the **Add file** drop-down button, and then click `Create new file`.
-1. Type or paste the following in the empty text field prompt to name your file.
-   ```
-   .devcontainer/devcontainer.json
-   ```
-1. In the body of the new **.devcontainer/devcontainer.json** file, add the following content:
-   ```
-   {
-       // Name this configuration
-       "name": "Codespace for Skills!",
-       "customizations": {
-           "vscode": {
-               "extensions": [
-                   "GitHub.copilot"
-               ]
-           }
-       }
-   }
-   ```
-1. Select the option to **Commit directly to the `main` branch**, and then click the **Commit new file** button.
-1. Navigate back to the home page of your repository by clicking the **Code** tab located at the top left of the screen.
-1. Click the **Code** button located in the middle of the page.
-1. Click the **Codespaces** tab on the box that pops up.
-1. Click the **Create codespace on main** button.
-
-   **Wait about 2 minutes for the codespace to spin itself up.**
-
-1. Verify your codespace is running. The browser should contain a VS Code web-based editor and a terminal should be present such as the below:
-   ![Screen Shot 2023-03-09 at 9 09 07 AM](https://user-images.githubusercontent.com/26442605/224102962-d0222578-3f10-4566-856d-8d59f28fcf2e.png)
-1. The `copilot` extension should show up in the VS Code extension list. Click the extensions sidebar tab. You should see the following:
-   ![Screen Shot 2023-03-09 at 9 04 13 AM](https://user-images.githubusercontent.com/26442605/224102514-7d6d2f51-f435-401d-a529-7bae3ae3e511.png)
-
-**Wait about 60 seconds then refresh your repository landing page for the next step.**
-
-<footer>
-
-<!--
-  <<< Author notes: Footer >>>
-  Add a link to get support, GitHub status page, code of conduct, license link.
--->
+This repository now hosts the runnable Vite + React prototype as well as documentation for the project’s broader roadmap.
 
 ---
 
-Get help: [Post in our discussion board](https://github.com/orgs/skills/discussions/categories/code-with-copilot) &bull; [Review the GitHub status page](https://www.githubstatus.com/)
+## Quick Start
 
-&copy; 2023 GitHub &bull; [Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md) &bull; [MIT License](https://gh.io/mit)
+```bash
+npm install
+npm run dev
+```
 
-</footer>
+The app launches on [http://localhost:5173](http://localhost:5173). Upload an MP3/WAV/M4A file to generate a mock song analysis
+stored in `localStorage`, then explore the playback experience.
+
+> **Note:** This prototype fabricates chord progressions using filename heuristics. Replace the mock generation pipeline with a
+> real analysis service before shipping to production.
+
+---
+
+## Project Structure
+
+```
+tabmaster/
+├── index.html
+├── package.json
+├── src/
+│   ├── App.jsx
+│   ├── Layout.js
+│   ├── api/
+│   │   └── songService.js
+│   ├── components/
+│   │   ├── learning/
+│   │   │   ├── PracticeCoach.jsx
+│   │   │   ├── StylePackPicker.jsx
+│   │   │   └── stylepacks.js
+│   │   ├── results/
+│   │   │   ├── AsciiTab.jsx
+│   │   │   ├── AudioPlayer.jsx
+│   │   │   ├── ChordProgression.jsx
+│   │   │   ├── GuitarHeroTab.jsx
+│   │   │   ├── InteractiveCAGED.jsx
+│   │   │   ├── SectionNavigator.jsx
+│   │   │   ├── StemsPanel.jsx
+│   │   │   └── TablatureDisplay.jsx
+│   │   ├── upload/
+│   │   │   ├── AudioUploadZone.jsx
+│   │   │   ├── InstrumentSelector.jsx
+│   │   │   └── ProcessingModal.jsx
+│   │   └── utils/
+│   │       ├── mockSong.js
+│   │       ├── songAnalysis.js
+│   │       └── timeline.js
+│   ├── entities/
+│   │   └── Song.json
+│   ├── pages/
+│   │   ├── Library.js
+│   │   ├── Results.js
+│   │   └── Upload.js
+│   └── styles/
+│       └── tailwind.css
+├── tailwind.config.js
+└── vite.config.js
+```
+
+Key frontend dependencies:
+
+- **React + React Router** for routing (`Upload`, `Results`, `Library`).
+- **TanStack React Query** for local song retrieval with cache-aware APIs.
+- **Tailwind CSS** for styling, plus **Lucide React** icons and **Framer Motion** micro-interactions.
+- **react-hook-form** handles the upload form, while **lodash** and **date-fns** power heuristics and formatting.
+
+---
+
+## Core Flows
+
+### 1. Upload & Analysis (`pages/Upload.js`)
+
+1. Drag-and-drop an audio file into `AudioUploadZone`.
+2. `songAnalysis.js` guesses key, BPM, and duration from filename and file size.
+3. `mockSong.js` builds a `Song` entity with sections, track events, and tablature positions.
+4. `songService.upsertSong` stores the song in `localStorage` before navigating to `Results`.
+
+### 2. Playback & Learning (`pages/Results.js`)
+
+1. React Query fetches the song via `songService.getSong`.
+2. `timeline.js` converts beat-based events to seconds for precise syncing.
+3. `AudioPlayer` exposes playback controls and speed adjustments.
+4. Visualization components consume the shared timeline:
+   - `GuitarHeroTab` animates the active chord and fret numbers.
+   - `ChordProgression` previews upcoming chords.
+   - `TablatureDisplay` doubles as the click-to-seek “timeline display.”
+   - `AsciiTab` renders text tablature, while `InteractiveCAGED` highlights CAGED positions.
+   - `SectionNavigator` jumps between sections and synchronizes with playback.
+
+### 3. Library (`pages/Library.js`)
+
+Lists locally analyzed songs, with options to reopen or delete entries. This mirrors the intended Base44 storage and RLS model in
+a lightweight prototype form.
+
+---
+
+## Song Entity Snapshot (`src/entities/Song.json`)
+
+The mock pipeline produces entities that match the schema below, designed to align with Base44 storage:
+
+- `global_music`: key, scale, capo, and reference tuning.
+- `global_timing`: tempo map, time signature, and PPQ resolution.
+- `sections`: verse/chorus metadata with bar and second ranges.
+- `tracks[0].events`: beat-based chord events with tablature positions and Roman numeral hints.
+
+---
+
+## Timing Utilities (`components/utils/timeline.js`)
+
+```js
+const secondsPerBeat = 60 / bpm;
+startSec = event.start_beat * secondsPerBeat;
+endSec = (event.start_beat + event.duration_beats) * secondsPerBeat;
+```
+
+`currentItemAt(timeline, time)` returns the active chord for the current audio position, and `groupBySection(song)` bundles
+events for section-based navigation.
+
+---
+
+## Future Enhancements
+
+- Replace heuristic chord generation with an actual audio analysis pipeline (Essentia, Chordify, etc.).
+- Support tempo changes and per-section BPM for better sync accuracy.
+- Implement real stem separation and mixing controls.
+- Expand the chord vocabulary to include barre shapes, 7ths, suspensions, and modal interchange.
+- Persist songs via Base44 storage instead of browser `localStorage` and enforce row-level security.
+
+---
+
+## License
+
+Released under the MIT License. See [LICENSE](LICENSE) for details.

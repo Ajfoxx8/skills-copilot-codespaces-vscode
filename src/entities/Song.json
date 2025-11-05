@@ -1,0 +1,127 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Song",
+  "type": "object",
+  "required": ["id", "title", "duration_sec", "global_music", "global_timing", "sections", "tracks"],
+  "properties": {
+    "id": { "type": "string" },
+    "title": { "type": "string" },
+    "artist": { "type": "string" },
+    "duration_sec": { "type": "number" },
+    "global_music": {
+      "type": "object",
+      "properties": {
+        "key_signature": { "type": "string" },
+        "scale": { "type": "string" },
+        "capo_fret": { "type": "number" },
+        "tuning_ref_hz": { "type": "number" }
+      }
+    },
+    "global_timing": {
+      "type": "object",
+      "properties": {
+        "ppq": { "type": "number" },
+        "time_signatures": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "bar_start": { "type": "number" },
+              "num": { "type": "number" },
+              "den": { "type": "number" }
+            }
+          }
+        },
+        "tempo_map": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "bar_start": { "type": "number" },
+              "bpm": { "type": "number" }
+            }
+          }
+        }
+      }
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "label": { "type": "string" },
+          "start_sec": { "type": "number" },
+          "end_sec": { "type": "number" }
+        }
+      }
+    },
+    "stems": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "label": { "type": "string" },
+          "role": { "type": "string" },
+          "audio_url": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "tracks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "instrument": {
+            "type": "object",
+            "properties": {
+              "family": { "type": "string" },
+              "type": { "type": "string" },
+              "tuning": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            }
+          },
+          "events": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "section_id": { "type": "string" },
+                "start_beat": { "type": "number" },
+                "duration_beats": { "type": "number" },
+                "kind": { "type": "string" },
+                "chord_symbol": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string" },
+                    "roman": { "type": "string" }
+                  }
+                },
+                "tab": {
+                  "type": "object",
+                  "properties": {
+                    "positions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "string": { "type": "number" },
+                          "fret": { "type": "number" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
