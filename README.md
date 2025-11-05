@@ -26,7 +26,7 @@ AudioCraft is an AI-assisted production companion for narrative podcasts and aud
 
 | Area | Stack | Notes |
 | ---- | ----- | ----- |
-| Frontend | React, TypeScript, Tailwind CSS | Runs on the Base44-hosted React runtime with [shadcn/ui](https://ui.shadcn.com), Lucide Icons, Framer Motion, and helpers such as `react-hook-form`. |
+| Frontend | React, TypeScript, Tailwind CSS | Runs on the Base44-hosted React runtime with [shadcn/ui](https://ui.shadcn.com), Lucide React, Framer Motion, and helpers such as `react-hook-form`. |
 | Backend | Base44 BaaS | No custom server; persistence and business logic rely on Base44 entities and automations. |
 | AI | Base44 Core.InvokeLLM | Handles script parsing, scene extraction, and content generation. |
 | Storage | Base44 File Storage | Uploads `.txt` and `.md` scripts; `.docx` uploads are **not** supported. |
