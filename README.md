@@ -2,32 +2,40 @@
 
 TabMaster is a Guitar Hero–inspired chord learning application that turns any uploaded audio file into a synchronized, interactive guitar practice experience. The platform ingests a track, produces a structured song entity, and renders multiple real-time visualizations that guide players through chord progressions, fretboard positions, and song sections while the audio plays.
 
+> **Repository status:** This repository currently contains **documentation only**. The React application, Base44 project configuration, and related implementation artifacts described below are part of the intended design but are not committed here. Use this README as a product and engineering reference while the codebase is being developed.
+
 ---
 
 ## Table of Contents
 
-1. [Key Capabilities](#key-capabilities)
-2. [System Architecture](#system-architecture)
+1. [Repository Contents](#repository-contents)
+2. [Key Capabilities](#key-capabilities)
+3. [System Architecture (Planned)](#system-architecture-planned)
    - [Frontend](#frontend)
    - [Backend (Base44 Platform)](#backend-base44-platform)
    - [Supporting Libraries](#supporting-libraries)
-3. [Data Model](#data-model)
+4. [Data Model](#data-model)
    - [Song Entity](#song-entity)
    - [Timing & Synchronization](#timing--synchronization)
-4. [User Flows](#user-flows)
+5. [User Flows (Proposed)](#user-flows-proposed)
    - [Upload & Analysis](#upload--analysis)
    - [Playback & Learning](#playback--learning)
-5. [Core Components](#core-components)
-6. [Algorithms & Business Logic](#algorithms--business-logic)
+6. [Core Components (Conceptual)](#core-components-conceptual)
+7. [Algorithms & Business Logic (Prototype)](#algorithms--business-logic-prototype)
    - [Chord Progression Generation](#chord-progression-generation)
    - [Beat-to-Second Conversion](#beat-to-second-conversion)
    - [Active Chord Detection](#active-chord-detection)
-7. [Development Environment](#development-environment)
-8. [Testing & Debugging](#testing--debugging)
-9. [Limitations](#limitations)
-10. [Roadmap](#roadmap)
+8. [Development Environment](#development-environment)
+9. [Testing & Debugging](#testing--debugging)
+10. [Limitations](#limitations)
+11. [Roadmap](#roadmap)
 
 ---
+
+## Repository Contents
+
+- `README.md` – Product overview and technical reference (this file).
+- `LICENSE` – MIT license for the future TabMaster codebase.
 
 ## Key Capabilities
 
@@ -38,14 +46,14 @@ TabMaster is a Guitar Hero–inspired chord learning application that turns any 
 
 ---
 
-## System Architecture
+## System Architecture (Planned)
 
 ### Frontend
 
 - **Framework:** React with React Router for multi-page navigation (`Upload`, `Results`, `Library`).
 - **Styling:** Tailwind CSS, shadcn/ui component library, Lucide React icons, and Framer Motion animations for UI polish.
 - **State/Data:** TanStack React Query manages asynchronous Base44 API calls and caching.
-- **Structure:** Key UI code lives in `pages/` (top-level screens) and `components/` (modular widgets). Utility logic resides in `components/utils/`.
+- **Structure:** Key UI code will live in `pages/` (top-level screens) and `components/` (modular widgets). Utility logic is planned for `components/utils/`.
 
 ### Backend (Base44 Platform)
 
@@ -139,7 +147,7 @@ The `Song` entity captures everything required to drive the learning experience:
 
 ---
 
-## User Flows
+## User Flows (Proposed)
 
 ### Upload & Analysis
 
@@ -153,18 +161,18 @@ The `Song` entity captures everything required to drive the learning experience:
 1. **Song Retrieval (`pages/Results.js`):** Fetches the song via URL `song` param and constructs a timeline.
 2. **Audio Synchronization:** Binds `timeupdate` events from the `<audio>` element to React state for current playback time.
 3. **Visualization Updates:** Components such as `GuitarHeroTab`, `InteractiveCAGED`, and `AsciiTab` highlight the current chord, show upcoming events, and animate fretboard positions.
-4. **Section Navigation:** `SectionNavigator` enables jumping between labeled song sections; `TimelineDisplay` supports seek and scrub interactions.
+4. **Section Navigation:** `SectionNavigator` enables jumping between labeled song sections; `TablatureDisplay` (which includes the event list and scrub controls) supports seek and scrub interactions.
 
 ---
 
-## Core Components
+## Core Components (Conceptual)
 
 ### Results Page Widgets (`components/results/`)
 
 - **`GuitarHeroTab.jsx`** – Primary now-playing display with animated fret indicators.
 - **`InteractiveCAGED.jsx`** – Shows fretboard shapes aligned to the song’s key using the CAGED system.
 - **`AudioPlayer.jsx`** – Audio element wrapper with playback speed, progress bar, and seek support.
-- **`AsciiTab.jsx`** & **`TablatureDisplay.jsx`** – Render tablature in ASCII and list forms for reference.
+- **`AsciiTab.jsx`** & **`TablatureDisplay.jsx`** – Render tablature in ASCII and list forms for reference, including timeline scrubbing controls.
 - **`ChordProgression.jsx`** – Displays the upcoming chord queue.
 - **`SectionNavigator.jsx`** – Jump between structural sections.
 - **`StemsPanel.jsx`** – Placeholder for future isolated stem playback.
@@ -186,7 +194,7 @@ The `Song` entity captures everything required to drive the learning experience:
 
 ---
 
-## Algorithms & Business Logic
+## Algorithms & Business Logic (Prototype)
 
 ### Chord Progression Generation
 
@@ -237,23 +245,13 @@ function currentItemAt(timeline, currentTime) {
 
 ## Development Environment
 
-1. **Prerequisites:** Node.js 18+, npm or yarn, and access to a Base44 project with TabMaster schemas deployed.
-2. **Install Dependencies:**
+Because this repository only tracks documentation, there is no runnable project yet. When the implementation phase begins:
 
-   ```bash
-   npm install
-   # or
-   yarn
-   ```
-
-3. **Environment Variables:** Configure Base44 credentials (API keys, project IDs) according to internal deployment docs.
-4. **Run Locally:**
-
-   ```bash
-   npm run dev
-   ```
-
-   The development server proxies Base44 API requests and hosts the React client.
+1. **Project Scaffold:** Create a React application (for example, with Vite or Create React App) and check in the generated `package.json`, source files, and build configuration.
+2. **Prerequisites:** Install Node.js 18+, npm or yarn, and provision a Base44 project with the TabMaster schemas.
+3. **Dependencies:** Run `npm install`/`yarn` after the scaffold exists to fetch dependencies defined in `package.json`.
+4. **Environment Variables:** Configure Base44 credentials (API keys, project IDs) according to internal deployment docs.
+5. **Local Development:** Start the dev server with `npm run dev` (or the equivalent script defined by the chosen scaffold) once the application code is in place.
 
 ---
 
